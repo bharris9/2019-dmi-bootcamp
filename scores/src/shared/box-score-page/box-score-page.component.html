@@ -1,0 +1,9 @@
+<div class="card" *ngIf="boxScore">
+  <div class="card-content">
+    <app-box-score-header [boxScore]="boxScore"></app-box-score-header>
+
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="card">
+  <div class="card-content">
+    <div class="card-wrapper">
+      <div
+        class="team1"
+        [class.has-text-weight-bold]="scoreItem.awayScore.winner"
+      >
+        {{ scoreItem.awayScore.team }}
+      </div>
+      <div
+        class="score1"
+        [class.has-text-weight-bold]="scoreItem.awayScore.winner"
+        *ngIf="!isScheduled"
+      >
+        {{ scoreItem.awayScore.score }}
+      </div>
+      <div
+        class="team2"
+        [class.has-text-weight-bold]="scoreItem.homeScore.winner"
+      >
+        {{ scoreItem.homeScore.team }}
+      </div>
+      <div
+        class="score2"
+        [class.has-text-weight-bold]="scoreItem.homeScore.winner"
+        *ngIf="!isScheduled"
+      >
+        {{ scoreItem.homeScore.score }}
+      </div>
+      <div class="status">
+        <span
+          class="tag is-pulled-right"
+          [class.is-info]="isInProgress"
+          [class.is-white]="isScheduled"
+          >{{ scoreItem.status }}</span
+        >
+      </div>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <span class="card-footer-item column is-one-quarter">
+      <a
+        *ngIf="showButton"
+        (click)="buttonClicked.emit()"
+        class="button"
+        [class.is-success]="isInProgress"
+        [class.is-primary]="isScheduled"
+      >
+        {{ isScheduled ? 'Preview' : 'Box' }}
+      </a>
+    </span>
+  </footer>
+</div>

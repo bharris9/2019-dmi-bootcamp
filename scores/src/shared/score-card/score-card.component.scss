@@ -1,0 +1,35 @@
+.card {
+  min-width: 325px;
+}
+
+.card-content {
+  padding: .75em;
+}
+
+.card-wrapper {
+  grid-template-columns: auto 30px 65px;
+  display: grid;
+  grid-gap: 0.5em;
+  grid-template-areas: "team1 score1 status" "team2 score2 status";
+}
+
+.status {
+  grid-area: status;
+  align-self: center;
+}
+
+.team1 {
+  grid-area: team1;
+}
+
+.score1 {
+  grid-area: score1;
+}
+
+.team2 {
+  grid-area: team2;
+}
+
+.score2 {
+  grid-area: score2;
+}

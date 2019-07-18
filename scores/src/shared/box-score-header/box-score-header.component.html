@@ -1,0 +1,25 @@
+<div class="columns is-vcentered is-centered">
+  <img [src]="awayScore.logo" height="100" width="100"/>
+  <div class="column has-text-centered is-3">
+    <div class="score title">
+      {{ awayScore.score }}
+    </div>
+    <div class="team">
+      {{ awayScore.team }}
+    </div>
+  </div>
+  <div class="column has-text-centered is-1">-</div>
+  <div class="column has-text-centered is-3">
+    <div class="score title">
+      {{ homeScore.score }}
+    </div>
+    <div class="team">
+      {{ homeScore.team }}
+    </div>
+  </div>
+  <img [src]="homeScore.logo" height="100" width="100"/>
+</div>
+
+<div class="subtitle has-text-centered">
+  <span class="tag">{{ boxScore.status }}</span>
+</div>

@@ -1,0 +1,43 @@
+<nav class="breadcrumb">
+  <ul>
+    <li><a [routerLink]="'/'">Home</a></li>
+    <li><a [routerLink]="'../'">MLB</a></li>
+    <li class="is-active">
+      <a>{{ boxScore?.shortName }}</a>
+    </li>
+  </ul>
+</nav>
+
+<app-box-score-page [boxScore]="boxScore" *ngIf="boxScore">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Team</th>
+      <th *ngFor="let _ of homeLine; index as i">
+        {{ i + 1 }}
+      </th>
+      <th>R</th>
+      <th>H</th>
+      <th>E</th>
+    </tr>
+    <tr>
+      <td>{{ awayScore.team }}</td>
+      <td *ngFor="let line of awayLine">
+        {{ line }}
+      </td>
+      <td>{{ awayScore.score }}</td>
+      <td>{{ awayScore.hits }}</td>
+      <td>{{ awayScore.errors }}</td>
+    </tr>
+    <tr>
+      <td>{{ homeScore.team }}</td>
+      <td *ngFor="let line of homeLine">
+        {{ line }}
+      </td>
+      <td>{{ homeScore.score }}</td>
+      <td>{{ homeScore.hits }}</td>
+      <td>{{ homeScore.errors }}</td>
+    </tr>
+    </thead>
+  </table>
+</app-box-score-page>
