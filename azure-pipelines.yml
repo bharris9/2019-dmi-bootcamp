@@ -25,7 +25,7 @@ steps:
     rootFolderOrFile: '$(Build.Repository.LocalPath)/scores-api'
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$scores-api-build(Build.BuildId).zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/scores-api-build$(Build.BuildId).zip'
     replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
