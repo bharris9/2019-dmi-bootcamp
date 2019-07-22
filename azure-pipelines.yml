@@ -17,6 +17,27 @@ steps:
 
 - script: |
     npm install
-    npm run build
-  displayName: 'npm install and build'
+  displayName: 'npm install'
   workingDirectory: 'scores-api'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'scores-api'
+    Contents: |
+      **\*.js
+      **\*.json
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/sports-scores-api'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/sports-scores-api'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
