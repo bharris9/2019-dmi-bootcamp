@@ -20,17 +20,9 @@ steps:
   displayName: 'npm install'
   workingDirectory: 'scores-api'
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: 'scores-api/src'
-    Contents: |
-      **\*.js
-      **\*.json
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/sports-scores-api'
-
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/sports-scores-api'
+    rootFolderOrFile: '$(Build.Repository.LocalPath)'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
