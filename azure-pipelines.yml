@@ -20,16 +20,16 @@ steps:
   displayName: 'npm install'
   workingDirectory: 'scores-api'
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    workingDir: 'scores-api'
-    customCommand: 'run build'
-  displayName: 'Build'
+# - task: Npm@1
+#   inputs:
+#     command: 'custom'
+#     workingDir: 'scores-api'
+#     customCommand: 'run build'
+#   displayName: 'Build'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.Repository.LocalPath)/scores-api/build'
+    rootFolderOrFile: '$(Build.Repository.LocalPath)/scores-api'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/scores-api-build$(Build.BuildId).zip'
