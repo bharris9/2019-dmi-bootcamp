@@ -24,7 +24,7 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'scores-api'
-    customCommand: 'start'
+    customCommand: 'run build'
   displayName: 'Build'
 
 - task: ArchiveFiles@2
