@@ -2,6 +2,7 @@ import express from "express";
 import axios from "axios";
 import mapToInternalModel from "../maps/mlb";
 import mapGameToInternalModel from "../maps/mlbGame";
+import '@babel/polyfill'
 
 const mlbScoresUri =
   "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard";
