@@ -20,12 +20,12 @@ steps:
   displayName: 'npm install'
   workingDirectory: 'scores-api'
 
-# - task: Npm@1
-#   inputs:
-#     command: 'custom'
-#     workingDir: 'scores-api'
-#     customCommand: 'run build'
-#   displayName: 'Build'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'scores-api'
+    customCommand: 'run build'
+  displayName: 'Build'
 
 - task: ArchiveFiles@2
   inputs:
