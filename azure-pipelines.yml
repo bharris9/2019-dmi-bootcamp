@@ -32,7 +32,7 @@ steps:
   inputs:
     SourceFolder: 'scores-api'
     Contents: 'web.config'
-    TargetFolder: '/build'
+    TargetFolder: '$(Build.Repository.LocalPath)/scores-api/build'
     OverWrite: true
 
 - task: ArchiveFiles@2
