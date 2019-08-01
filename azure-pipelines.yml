@@ -35,6 +35,14 @@ steps:
     TargetFolder: '$(Build.Repository.LocalPath)/scores-api/build'
     OverWrite: true
 
+- task: CopyFiles@2
+  displayName: 'Copy Node Modules to Build Folder'
+  inputs:
+    SourceFolder: 'scores-api'
+    Contents: 'node_modules'
+    TargetFolder: '$(Build.Repository.LocalPath)/scores-api/build'
+    OverWrite: true
+
 - task: ArchiveFiles@2
   displayName: 'Zip + Stage Built App'
   inputs:
