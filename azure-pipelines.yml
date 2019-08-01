@@ -38,7 +38,7 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy Node Modules to Build Folder'
   inputs:
-    SourceFolder: 'scores-api'
+    SourceFolder: '$(Build.Repository.LocalPath)/scores-api/'
     Contents: 'node_modules'
     TargetFolder: '$(Build.Repository.LocalPath)/scores-api/build'
     OverWrite: true
