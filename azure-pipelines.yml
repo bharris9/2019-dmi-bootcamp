@@ -27,15 +27,25 @@ steps:
     customCommand: 'run build'
   displayName: 'Build'
 
-- task: ArchiveFiles@2
+- task: CopyFiles@2
+  displayName: 'Copy web.config to Build folder'
   inputs:
-    rootFolderOrFile: '$(Build.Repository.LocalPath)/scores-api'
+    SourceFolder: 'scores-api'
+    Contents: 'web.config'
+    TargetFolder: '/build'
+    OverWrite: true
+
+- task: ArchiveFiles@2
+  displayName: 'Zip + Stage Built App'
+  inputs:
+    rootFolderOrFile: '$(Build.Repository.LocalPath)/scores-api/build'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/scores-api-build$(Build.BuildId).zip'
     replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Stage Artifact'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
