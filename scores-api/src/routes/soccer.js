@@ -3,16 +3,17 @@ import axios from "axios";
 import mapToInternalModel from "../maps/womensWorldCup";
 import mapMatchToInternalModel from "../maps/womensWorldCupMatch"
 
-const scoreboardUri =
-  "http://site.api.espn.com/apis/site/v2/sports/soccer/fifa.wwc/scoreboard";
+const baseUri = "http://site.api.espn.com/apis/site/v2/sports/soccer/";
+const scoreboardUri = "/scoreboard";
 const gameSummaryUri = 
-  "http://site.api.espn.com/apis/site/v2/sports/soccer/fifa.wwc/summary?event=";
+  "/summary?event=";
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/:league", async (req, res) => {
   try {
+    const leagueUri = baseUri + req.params.league + scoreboardUri;
     const date = req.query.date;
-    const getAllScoresUri = !!date ? `${scoreboardUri}?dates=${date}` : scoreboardUri;
+    const getAllScoresUri = !!date ? `${leagueUri}?dates=${date}` : leagueUri;
     const response = await axios.get(getAllScoresUri);
     const data = response.data;
     const mapped = mapToInternalModel(data);
@@ -24,7 +25,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:league/:id", async (req, res) => {
   try {
     const gameUri = gameSummaryUri + req.params.id;
     console.log(gameUri);
