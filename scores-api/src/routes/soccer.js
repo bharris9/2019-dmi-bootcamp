@@ -27,7 +27,7 @@ router.get("/:league", async (req, res) => {
 
 router.get("/:league/:id", async (req, res) => {
   try {
-    const gameUri = gameSummaryUri + req.params.id;
+    const gameUri = baseUri + req.params.league + gameSummaryUri + req.params.id;
     console.log(gameUri);
     const response = await axios.get(gameUri);
     const data = response.data;

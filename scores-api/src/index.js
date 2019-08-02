@@ -11,7 +11,6 @@ app.use(cors());
 app.use("/scores/mlb", mlbScoresRouter);
 app.use("/scores/mlb/:id", mlbScoresRouter);
 app.use("/scores/soccer/", soccerRouter);
-app.use("/scores/soccer/", soccerRouter);
 app.use("/leagues/", leaguesRouter);
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
