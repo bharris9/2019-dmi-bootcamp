@@ -14,6 +14,7 @@ router.get("/", async (req, res) => {
   try {
     const date = req.query.date;
     const getAllScoresUri = !!date ? `${mlbScoresUri}?dates=${date}` : mlbScoresUri;
+    console.log(getAllScoresUri);
     const response = await axios.get(getAllScoresUri);
     const data = response.data;
     const mapped = mapToInternalModel(data);
@@ -28,6 +29,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const gameUri = mlbGameSummaryUri + req.params.id;
+    console.log(gameUri);
     const response = await axios.get(gameUri);
     const data = response.data;
     const mapped = mapGameToInternalModel(data);

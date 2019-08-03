@@ -14,6 +14,7 @@ router.get("/:league", async (req, res) => {
     const leagueUri = baseUri + req.params.league + scoreboardUri;
     const date = req.query.date;
     const getAllScoresUri = !!date ? `${leagueUri}?dates=${date}` : leagueUri;
+    console.log(getAllScoresUri);
     const response = await axios.get(getAllScoresUri);
     const data = response.data;
     const mapped = mapToInternalModel(data);

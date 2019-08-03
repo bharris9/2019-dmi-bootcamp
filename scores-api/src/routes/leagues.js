@@ -8,6 +8,7 @@ const router = express.Router();
 router.get("/:sport", async (req, res) => {
   try {
     const leagueUri = baseUri + req.params.sport;
+    console.log(leagueUri);
     const response = await axios.get(leagueUri);
     const data = response.data;
     const mapped = mapToInternalModel(data);
