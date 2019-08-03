@@ -5,7 +5,7 @@ export const getTeamScore = (event, homeAway) => {
 };
 
 export const getOdds = odds => {
-  if (!!odds) {
+  if (!!odds && odds.length > 0) {
     return {
       details: odds[0].details,
       overUnder: odds[0].overUnder
