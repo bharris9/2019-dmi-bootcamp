@@ -1,6 +1,9 @@
 const mapToInternalModel = data => {
     const leagues = data.leagues;
 
+    if (!Array.isArray(leagues))
+      return [];
+
     return leagues.map(league => ({
         id: league.id,
         name: league.name,
