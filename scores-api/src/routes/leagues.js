@@ -14,15 +14,15 @@ router.get('/:sport', async (req, res) => {
       res.status(500).json({ error: 'Must supply a sport' });
     }
 
-    if (sport !== 'college-football') {
+    if (sport == 'ncaa-football') {
+      const data = getCollegeFootballLeagues();
+      const mapped = mapToInternalModel(data);
+      res.send(mapped);
+    } else {
       const leagueUri = baseUri + sport;
       console.log(leagueUri);
       const response = await axios.get(leagueUri);
       const data = response.data;
-      const mapped = mapToInternalModel(data);
-      res.send(mapped);
-    } else {
-      const data = getCollegeFootballLeagues();
       const mapped = mapToInternalModel(data);
       res.send(mapped);
     }
