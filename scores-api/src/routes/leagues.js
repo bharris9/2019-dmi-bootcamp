@@ -39,7 +39,7 @@ function getCollegeFootballLeagues() {
         id: 80,
         name: 'FBS (1-A)',
         abbreviation: 'FBS',
-        apiKey: '80',
+        midsizeName: '80',
         logos: [
           {
             href:
@@ -51,14 +51,14 @@ function getCollegeFootballLeagues() {
         id: 1,
         name: 'Atlantic Coast Conference',
         abbreviation: 'ACC',
-        apiKey: '1',
+        midsizeName: '1',
         logos: [{ href: 'http://theacc.com/images/main_logo.png' }]
       },
       {
         id: 151,
         name: 'American Conference',
         abbreviation: 'AAC',
-        apiKey: '151',
+        midsizeName: '151',
         logos: [
           {
             href:
@@ -70,7 +70,7 @@ function getCollegeFootballLeagues() {
         id: 4,
         name: 'Big 12',
         abbreviation: 'Big 12',
-        apiKey: '4',
+        midsizeName: '4',
         logos: [
           {
             href:
@@ -82,7 +82,7 @@ function getCollegeFootballLeagues() {
         id: 5,
         name: 'Big 10',
         abbreviation: 'B1G',
-        apiKey: '5',
+        midsizeName: '5',
         logos: [
           { href: 'https://s3.amazonaws.com/bigten.org/images/btc_logo.svg' }
         ]
@@ -91,14 +91,14 @@ function getCollegeFootballLeagues() {
         id: 12,
         name: 'Conference USA',
         abbreviation: 'CUSA',
-        apiKey: '12',
+        midsizeName: '12',
         logos: [{ href: 'https://conferenceusa.com/images/logo.png' }]
       },
       {
         id: 18,
         name: 'FBS Independents',
         abbreviation: 'FBS Ind',
-        apiKey: '18',
+        midsizeName: '18',
         logos: [
           {
             href:
@@ -110,7 +110,7 @@ function getCollegeFootballLeagues() {
         id: 15,
         name: 'Mid-American Conference',
         abbreviation: 'MAC',
-        apiKey: '15',
+        midsizeName: '15',
         logos: [
           { href: 'https://getsomemaction.com/images/responsive/main_logo.png' }
         ]
@@ -119,14 +119,14 @@ function getCollegeFootballLeagues() {
         id: 17,
         name: 'Mountain West Conference',
         abbreviation: 'MWC',
-        apiKey: '17',
+        midsizeName: '17',
         logos: [{ href: 'https://themw.com/images/main_logo.png' }]
       },
       {
         id: 9,
         name: 'Pac-12 Conference',
         abbreviation: 'PAC12',
-        apiKey: '9',
+        midsizeName: '9',
         logos: [
           {
             href:
@@ -138,7 +138,7 @@ function getCollegeFootballLeagues() {
         id: 8,
         name: 'Southeastern Conference',
         abbreviation: 'SEC',
-        apiKey: '8',
+        midsizeName: '8',
         logos: [
           {
             href:
@@ -150,7 +150,7 @@ function getCollegeFootballLeagues() {
         id: 37,
         name: 'Sun Belt Conference',
         abbreviation: 'SBC',
-        apiKey: '37',
+        midsizeName: '37',
         logos: [
           { href: 'https://sunbeltsports.org/images/responsive/main_logo.png' }
         ]
@@ -159,7 +159,7 @@ function getCollegeFootballLeagues() {
         id: 81,
         name: 'Division 1 FCS',
         abbreviation: 'FCS',
-        apiKey: '81',
+        midsizeName: '81',
         logos: [
           { href: 'https://en.wikipedia.org/wiki/NCAA_Division_I_Football_Championship#/media/File:NCAA_Division_I_FCS_logo.svg' }
         ]
@@ -168,7 +168,7 @@ function getCollegeFootballLeagues() {
         id: 35,
         name: 'Division II/III',
         abbreviation: 'D2/D3',
-        apiKey: '35',
+        midsizeName: '35',
         logos: [
           { href: 'http://www.ncaa.org/sites/all/themes/victory/logo.png' }
         ]
