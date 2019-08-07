@@ -46,6 +46,7 @@ router.get('/:id', async (req, res) => {
 });
 
 function getAllScoresQueryParams(group, date, week) {
+  const URLSearchParams = require('url').URLSearchParams
   const searchParams = new URLSearchParams();
   searchParams.append('limit', 900);
 
