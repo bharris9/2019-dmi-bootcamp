@@ -28,10 +28,14 @@ function mapScore(scoreItem) {
     teamAbbreviation: scoreItem.team.abbreviation,
     team: scoreItem.team.displayName,
     logo: scoreItem.team.logo,
-    record: scoreItem.records.find(r => r.type === 'total').summary,
-    conferenceRecord: scoreItem.records.find(r => r.type === 'vsconf').summary,
+    record: getRecords(scoreItem.records, 'total'),
+    conferenceRecord: getRecords(scoreItem.records, 'vsconf'),
     possession: scoreItem.possession
   };
 }
+
+function getRecords(records, recordType) {
+  return !!records ? records.find(r => r.type === recordType).summary : null;
+} 
 
 export default mapToInternalModel;
