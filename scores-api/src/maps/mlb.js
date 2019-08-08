@@ -23,10 +23,10 @@ const mapToInternalModel = data => {
 };
 
 function getAtBat(situation) {
-  if(!!situation && !!situation.batter && !!situation.pitcher) {
+  if (!!situation && !!situation.batter && !!situation.pitcher) {
     const pitcher = situation.pitcher.athlete.shortName;
     const batter = `${situation.batter.athlete.shortName}`;
-    return `${pitcher} pitching to ${batter}`
+    return `${pitcher} pitching to ${batter}`;
   }
   return null;
 }
@@ -47,7 +47,7 @@ function getCurrentSituation(situation) {
       onFirst: !!situation.onFirst,
       onSecond: !!situation.onSecond,
       onThird: !!situation.onThird
-    }
+    };
   }
   return null;
 }

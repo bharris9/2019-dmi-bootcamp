@@ -6,6 +6,7 @@ const mapGameToInternalModel = event => {
     shortName: getShortName(event.header),
     completed: event.header.competitions[0].status.type.completed,
     inning: event.header.competitions[0].status.period,
+    inningPrefix: event.header.competitions[0].status.periodPrefix,
     status: event.header.competitions[0].status.type.shortDetail,
     statusType: event.header.competitions[0].status.type.name,
     tvBroadcast: getTvBroadcast(event.header.competitions[0].broadcasts),
