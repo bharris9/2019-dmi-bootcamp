@@ -7,6 +7,7 @@ const mapGameToInternalModel = event => {
     completed: event.header.competitions[0].status.type.completed,
     inning: event.header.competitions[0].status.period,
     status: event.header.competitions[0].status.type.shortDetail,
+    statusType: event.header.competitions[0].status.type.name,
     tvBroadcast: getTvBroadcast(event.header.competitions[0].broadcasts),
     homeScore: mapScore(getTeamScore(event.header, 'home')),
     awayScore: mapScore(getTeamScore(event.header, 'away')),

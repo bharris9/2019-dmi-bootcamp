@@ -9,6 +9,7 @@ const mapMatchToInternalModel = event => {
     period: event.header.competitions[0].status.period,
     clock: event.header.competitions[0].status.clock,
     status: event.header.competitions[0].status.type.shortDetail,
+    statusType: event.header.competitions[0].status.type.name,
     note: event.header.season.name,
     tvBroadcast: getTvBroadcast(event.header.competitions[0].broadcasts),
     homeScore: mapScore(getTeamScore(event.header, 'home')),
