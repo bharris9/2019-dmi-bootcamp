@@ -1,5 +1,6 @@
-import express from 'express';
 import axios from 'axios';
+import express from 'express';
+import mapToInternalCalendarModel from '../maps/leagueCalendar';
 import mapToInternalModel from '../maps/ncaaFootball';
 import mapGameToInternalModel from '../maps/ncaaFootballGame';
 
@@ -29,10 +30,27 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/calendar', async (req, res) => {
+  try {
+    const allScoresUri = baseUri + scoreboardUri;
+    const date = req.query.date;
+    const queryParams = getAllScoresQueryParams(null, date, null);
+    const getCalendarURI = `${allScoresUri}?${queryParams}`;
+    console.log(getCalendarURI);
+    const response = await axios.get(getCalendarURI);
+    const data = response.data;
+    const mapped = mapToInternalCalendarModel(data);
+
+    res.send(mapped);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.toString() });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
-    const gameUri =
-      baseUri + gameSummaryUri + req.params.id;
+    const gameUri = baseUri + gameSummaryUri + req.params.id;
     console.log(gameUri);
     const response = await axios.get(gameUri);
     const data = response.data;
@@ -46,18 +64,15 @@ router.get('/:id', async (req, res) => {
 });
 
 function getAllScoresQueryParams(group, date, week) {
-  const URLSearchParams = require('url').URLSearchParams
+  const URLSearchParams = require('url').URLSearchParams;
   const searchParams = new URLSearchParams();
   searchParams.append('limit', 900);
 
-  if(!!group)
-    searchParams.append('groups', group);
+  if (!!group) searchParams.append('groups', group);
 
-  if(!!date)
-    searchParams.append('dates', date);
-  
-  if(!!week)
-    searchParams.append('week', week);
+  if (!!date) searchParams.append('dates', date);
+
+  if (!!week) searchParams.append('week', week);
 
   return searchParams.toString();
 }
