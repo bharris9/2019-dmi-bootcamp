@@ -43,6 +43,14 @@ steps:
     TargetFolder: '$(Build.Repository.LocalPath)/scores-api/build'
     OverWrite: true
 
+- task: CopyFiles@2
+  displayName: 'Copy Package.json to Build Folder'
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)/scores-api/'
+    Contents: 'package.json'
+    TargetFolder: '$(Build.Repository.LocalPath)/scores-api/build'
+    OverWrite: true
+
 - task: ArchiveFiles@2
   displayName: 'Zip + Stage Built App'
   inputs:
