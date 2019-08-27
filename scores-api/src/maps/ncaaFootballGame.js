@@ -77,7 +77,7 @@ function mapPlayerStats(teamBox) {
     return {
       team: teamBox.team.displayName,
       statistics: teamBox.statistics.map(stats => ({
-        type: stats.type,
+        type: stats.name,
         labels: stats.labels,
         descriptions: stats.descriptions,
         totals: stats.totals,
