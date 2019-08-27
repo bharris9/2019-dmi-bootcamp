@@ -13,11 +13,17 @@ const mapGameToInternalModel = event => {
     homeScore: mapScore(getTeamScore(event.header, 'home')),
     awayScore: mapScore(getTeamScore(event.header, 'away')),
     lastPlay: getLastPlay(event),
-    homeStats: mapStats(
+    homeTeamStats: mapTeamStats(
       getBoxScore(event.boxscore.teams, event.header, 'home')
     ),
-    awayStats: mapStats(
+    homePlayerStats: mapPlayerStats(
+      getBoxScore(event.boxscore.players, event.header, 'home')
+    ),
+    awayTeamStats: mapTeamStats(
       getBoxScore(event.boxscore.teams, event.header, 'away')
+    ),
+    awayPlayerStats: mapPlayerStats(
+      getBoxScore(event.boxscore.players, event.header, 'away')
     ),
     odds: getOdds(event.pickcenter)
   };
@@ -37,7 +43,9 @@ function getTeam(header, homeAway) {
 
 function getLastPlay(event) {
   if (!!event.situation) {
-    const lastPlay = event.plays.find(p => p.id === event.situation.lastPlay.id);
+    const lastPlay = event.plays.find(
+      p => p.id === event.situation.lastPlay.id
+    );
     return !!lastPlay ? lastPlay.text : null;
   }
   return null;
@@ -53,17 +61,45 @@ function mapScore(scoreItem) {
     logo: scoreItem.team.logos[0].href,
     record: scoreItem.record.find(r => r.type === 'total').summary,
     conferenceRecord: scoreItem.record.find(r => r.type === 'vsconf').summary,
-    possession: scoreItem.possession
+    possession: scoreItem.possession,
+    lineScores: scoreItem.linescores
   };
 }
 
-function mapStats(teamBox) {
-  return null;
+function mapTeamStats(teamBox) {
+  return {
+    team: teamBox.team.displayName
+  };
+}
+
+function mapPlayerStats(teamBox) {
+  if (!!teamBox) {
+    return {
+      team: teamBox.team.displayName,
+      statistics: teamBox.statistics.map(stats => ({
+        type: stats.type,
+        labels: stats.labels,
+        descriptions: stats.descriptions,
+        totals: stats.totals,
+        players: stats.athletes.map(playerStats => ({
+          name: playerStats.athlete.displayName,
+          stats: playerStats.stats,
+          notes: !!playerStats.notes ? playerStats.notes[0].text : ''
+        }))
+      }))
+    };
+  } else {
+    return null;
+  }
 }
 
 function getBoxScore(boxScores, header, homeAway) {
   const team = getTeam(header, homeAway);
-  return boxScores.find(p => p.team.id === team.id);
+  if (!!boxScores) {
+    return boxScores.find(p => p.team.id === team.id);
+  } else {
+    return null;
+  }
 }
 
 export default mapGameToInternalModel;
