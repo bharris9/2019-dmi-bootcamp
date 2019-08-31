@@ -68,8 +68,12 @@ function mapScore(scoreItem) {
 
 function mapTeamStats(teamBox) {
   return {
-    team: teamBox.team.displayName
-  };
+    teamAbbreviation: teamBox.team.teamAbbreviation,
+    team: teamBox.team.displayName,
+    shortDisplayName: teamBox.team.shortDisplayName,
+    logo: teamBox.team.logo,
+    stats: teamBox.statistics
+  }
 }
 
 function mapPlayerStats(teamBox) {
