@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     const group = req.query.group;
     const date = req.query.date;
     const week = req.query.week;
-    const queryParams = getAllScoresQueryParams(group, date, week);
+    const queryParams = getAllScoresQueryParams(group, date, week, 900);
     const getAllScoresUri = `${allScoresUri}?${queryParams}`;
     console.log(getAllScoresUri);
     const response = await axios.get(getAllScoresUri);
@@ -34,7 +34,7 @@ router.get('/calendar', async (req, res) => {
   try {
     const allScoresUri = baseUri + scoreboardUri;
     const date = req.query.date;
-    const queryParams = getAllScoresQueryParams(null, date, null);
+    const queryParams = getAllScoresQueryParams(null, date, null, 1);
     const getCalendarURI = `${allScoresUri}?${queryParams}`;
     console.log(getCalendarURI);
     const response = await axios.get(getCalendarURI);
@@ -63,10 +63,10 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-function getAllScoresQueryParams(group, date, week) {
+function getAllScoresQueryParams(group, date, week, limit) {
   const URLSearchParams = require('url').URLSearchParams;
   const searchParams = new URLSearchParams();
-  searchParams.append('limit', 900);
+  searchParams.append('limit', limit);
 
   if (!!group) searchParams.append('groups', group);
 
