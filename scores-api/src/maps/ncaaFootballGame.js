@@ -9,6 +9,8 @@ const mapGameToInternalModel = event => {
     clock: event.header.competitions[0].status.displayClock,
     status: event.header.competitions[0].status.type.shortDetail,
     statusType: event.header.competitions[0].status.type.name,
+    conferenceGame: event.header.competitions[0].conferenceCompetition,
+    conferenceDetails: getConferenceDetails(event.header.competitions[0]),
     tvBroadcast: getTvBroadcast(event.header.competitions[0].broadcasts),
     homeScore: mapScore(getTeamScore(event.header, 'home')),
     awayScore: mapScore(getTeamScore(event.header, 'away')),
@@ -28,6 +30,14 @@ const mapGameToInternalModel = event => {
     odds: getOdds(event.pickcenter)
   };
 };
+
+function getConferenceDetails(competition) {
+  if (!!competition.conferenceCompetition) {
+    return competition.groups.shortName;
+  } else {
+    return null;
+  }
+}
 
 function getShortName(header) {
   const homeTeam = getTeam(header, 'home');
@@ -51,6 +61,16 @@ function getLastPlay(event) {
   return null;
 }
 
+function getRanking(scoreItem) {
+  if (!!scoreItem.rank) {
+    return scoreItem.rank < 99
+      ? scoreItem.rank
+      : null;
+  } else {
+    return null;
+  }
+}
+
 function mapScore(scoreItem) {
   return {
     homeAway: scoreItem.homeAway,
@@ -62,7 +82,8 @@ function mapScore(scoreItem) {
     record: scoreItem.record.find(r => r.type === 'total').summary,
     conferenceRecord: scoreItem.record.find(r => r.type === 'vsconf').summary,
     possession: scoreItem.possession,
-    lineScores: scoreItem.linescores
+    lineScores: scoreItem.linescores,
+    ranking: getRanking(scoreItem)
   };
 }
 

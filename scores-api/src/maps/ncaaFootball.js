@@ -16,7 +16,8 @@ const mapToInternalModel = data => {
     tvBroadcast: getTvBroadcast(event.competitions[0].geoBroadcasts),
     homeScore: mapScore(getTeamScore(event, 'home')),
     awayScore: mapScore(getTeamScore(event, 'away')),
-    odds: getOdds(event.competitions[0].odds)
+    odds: getOdds(event.competitions[0].odds),
+    conferenceGame: event.competitions[0].conferenceCompetition
   }));
 };
 
@@ -30,12 +31,23 @@ function mapScore(scoreItem) {
     logo: scoreItem.team.logo,
     record: getRecords(scoreItem.records, 'total'),
     conferenceRecord: getRecords(scoreItem.records, 'vsconf'),
+    rank: getRanking(scoreItem),
     possession: scoreItem.possession
   };
 }
 
+function getRanking(scoreItem) {
+  if (!!scoreItem.curatedRank) {
+    return scoreItem.curatedRank.current < 99
+      ? scoreItem.curatedRank.current
+      : null;
+  } else {
+    return null;
+  }
+}
+
 function getRecords(records, recordType) {
   return !!records ? records.find(r => r.type === recordType).summary : null;
-} 
+}
 
 export default mapToInternalModel;
