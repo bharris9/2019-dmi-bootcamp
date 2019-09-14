@@ -15,6 +15,9 @@ const mapGameToInternalModel = event => {
     homeScore: mapScore(getTeamScore(event.header, 'home')),
     awayScore: mapScore(getTeamScore(event.header, 'away')),
     lastPlay: getLastPlay(event),
+    downDistance: getDownDistance(event),
+    venue: getVenue(event),
+    weather: event.weather,
     homeTeamStats: mapTeamStats(
       getBoxScore(event.boxscore.teams, event.header, 'home')
     ),
@@ -30,6 +33,21 @@ const mapGameToInternalModel = event => {
     odds: getOdds(event.pickcenter)
   };
 };
+
+function getVenue(event) {
+  if (!!event.gameInfo.venue) {
+    const venue = event.gameInfo.venue;
+    return (
+      venue.fullName +
+      ' (' +
+      venue.address.city +
+      ', ' +
+      venue.address.state +
+      ')'
+    );
+  }
+  return null;
+}
 
 function getConferenceDetails(competition) {
   if (!!competition.conferenceCompetition) {
@@ -51,21 +69,33 @@ function getTeam(header, homeAway) {
   );
 }
 
+function getDownDistance(event) {
+  if (!!event.drives && !!event.drives.current) {
+    const currentDrive = event.drives.current;
+    if (!!currentDrive.plays) {
+      const lastPlay = currentDrive.plays.slice(-1)[0];
+      return lastPlay.start.downDistanceText;
+    }
+    return null;
+  }
+  return null;
+}
+
 function getLastPlay(event) {
-  if (!!event.situation) {
-    const lastPlay = event.plays.find(
-      p => p.id === event.situation.lastPlay.id
-    );
-    return !!lastPlay ? lastPlay.text : null;
+  if (!!event.drives && !!event.drives.current) {
+    const currentDrive = event.drives.current;
+    if (!!currentDrive.plays) {
+      const lastPlay = currentDrive.plays.slice(-1)[0];
+      return currentDrive.team.abbreviation + ' - ' + lastPlay.text;
+    }
+    return null;
   }
   return null;
 }
 
 function getRanking(scoreItem) {
   if (!!scoreItem.rank) {
-    return scoreItem.rank < 99
-      ? scoreItem.rank
-      : null;
+    return scoreItem.rank < 99 ? scoreItem.rank : null;
   } else {
     return null;
   }
@@ -94,7 +124,7 @@ function mapTeamStats(teamBox) {
     shortDisplayName: teamBox.team.shortDisplayName,
     logo: teamBox.team.logo,
     stats: teamBox.statistics
-  }
+  };
 }
 
 function mapPlayerStats(teamBox) {
