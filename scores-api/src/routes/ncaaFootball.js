@@ -10,6 +10,7 @@ const baseUri =
 const scoreboardUri = '/scoreboard';
 const rankingsUri = '/rankings';
 const gameSummaryUri = '/summary?event=';
+const standingsUri = '/standings?group='
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -22,6 +23,21 @@ router.get('/', async (req, res) => {
     const getAllScoresUri = `${allScoresUri}?${queryParams}`;
     console.log(getAllScoresUri);
     const response = await axios.get(getAllScoresUri);
+    const data = response.data;
+    const mapped = mapToInternalModel(data);
+
+    res.send(mapped);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.toString() });
+  }
+});
+
+router.get('/standings', async (req, res) => {
+  try {
+    const group = req.query.group;
+    const fullStandingsUri = baseUri + standingsUri + group;
+    const response = await axios.get(fullStandingsUri);
     const data = response.data;
     const mapped = mapToInternalModel(data);
 
