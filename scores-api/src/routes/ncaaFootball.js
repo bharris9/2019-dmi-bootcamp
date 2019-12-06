@@ -4,9 +4,11 @@ import mapToInternalCalendarModel from '../maps/leagueCalendar';
 import mapToInternalModel from '../maps/ncaaFootball';
 import mapGameToInternalModel from '../maps/ncaaFootballGame';
 import mapToRankingsModel from '../maps/ncaaFootballRankings';
+import mapToStandingsModel from '../maps/standings';
 
 const baseUri =
   'http://site.api.espn.com/apis/site/v2/sports/football/college-football';
+const secondaryBaseUri = 'http://site.api.espn.com/apis/v2/sports/football/college-football';
 const scoreboardUri = '/scoreboard';
 const rankingsUri = '/rankings';
 const gameSummaryUri = '/summary?event=';
@@ -36,10 +38,10 @@ router.get('/', async (req, res) => {
 router.get('/standings', async (req, res) => {
   try {
     const group = req.query.group;
-    const fullStandingsUri = baseUri + standingsUri + group;
+    const fullStandingsUri = secondaryBaseUri + standingsUri + group;
     const response = await axios.get(fullStandingsUri);
     const data = response.data;
-    const mapped = mapToInternalModel(data);
+    const mapped = mapToStandingsModel(data);
 
     res.send(mapped);
   } catch (error) {
