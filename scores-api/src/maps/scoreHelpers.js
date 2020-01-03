@@ -19,3 +19,9 @@ export const getTvBroadcast = broadcasts => {
   );
   return !!tvBroadcast ? tvBroadcast.media.shortName : '';
 };
+
+export const getEventNotes = notes => {
+  if (!!notes && notes.length > 0) {
+    return notes[0].headline;
+  };
+}

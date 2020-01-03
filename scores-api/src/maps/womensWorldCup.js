@@ -1,4 +1,4 @@
-import { getTeamScore, getTvBroadcast } from './scoreHelpers';
+import { getTeamScore, getTvBroadcast, getEventNotes } from './scoreHelpers';
 
 const mapToInternalModel = data => {
   const events = data.events;
@@ -16,6 +16,7 @@ const mapToInternalModel = data => {
     tvBroadcast: getTvBroadcast(event.competitions[0].geoBroadcasts),
     homeScore: mapScore(getTeamScore(event, 'home')),
     awayScore: mapScore(getTeamScore(event, 'away')),
+    notes: getEventNotes(event.competitions[0].notes)
   }));
 };
 

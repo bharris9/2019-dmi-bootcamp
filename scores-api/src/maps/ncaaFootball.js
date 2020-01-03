@@ -1,4 +1,4 @@
-import { getTeamScore, getOdds, getTvBroadcast } from './scoreHelpers';
+import { getTeamScore, getOdds, getTvBroadcast, getEventNotes } from './scoreHelpers';
 
 const mapToInternalModel = data => {
   const events = data.events;
@@ -17,7 +17,8 @@ const mapToInternalModel = data => {
     homeScore: mapScore(getTeamScore(event, 'home')),
     awayScore: mapScore(getTeamScore(event, 'away')),
     odds: getOdds(event.competitions[0].odds),
-    conferenceGame: event.competitions[0].conferenceCompetition
+    conferenceGame: event.competitions[0].conferenceCompetition,
+    notes: getEventNotes(event.competitions[0].notes)
   }));
 };
 
@@ -47,7 +48,12 @@ function getRanking(scoreItem) {
 }
 
 function getRecords(records, recordType) {
-  return !!records ? records.find(r => r.type === recordType).summary : null;
+  if (!!records) {
+    let record = records.find(r => r.type === recordType);
+    return !!record ? record.summary : null;
+  } else {
+    return null;
+  }
 }
 
 export default mapToInternalModel;

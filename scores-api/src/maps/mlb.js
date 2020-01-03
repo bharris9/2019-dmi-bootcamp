@@ -1,4 +1,4 @@
-import { getTeamScore, getOdds, getTvBroadcast } from './scoreHelpers';
+import { getTeamScore, getOdds, getTvBroadcast, getEventNotes } from './scoreHelpers';
 
 const mapToInternalModel = data => {
   const events = data.events;
@@ -18,7 +18,8 @@ const mapToInternalModel = data => {
     odds: getOdds(event.competitions[0].odds),
     lastPlay: getLastPlay(event.competitions[0].situation),
     atBat: getAtBat(event.competitions[0].situation),
-    currentSituation: getCurrentSituation(event.competitions[0].situation)
+    currentSituation: getCurrentSituation(event.competitions[0].situation),
+    notes: getEventNotes(event.competitions[0].notes)
   }));
 };
 
