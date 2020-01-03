@@ -1,8 +1,8 @@
 import axios from 'axios';
 import express from 'express';
 import mapToInternalCalendarModel from '../maps/leagueCalendar';
-import mapToInternalModel from '../maps/ncaaFootball';
-import mapGameToInternalModel from '../maps/ncaaFootballGame';
+import mapToInternalModel from '../maps/football';
+import mapGameToInternalModel from '../maps/footballGame';
 import mapToRankingsModel from '../maps/ncaaFootballRankings';
 import mapToStandingsModel from '../maps/standings';
 

@@ -30,7 +30,9 @@ const mapGameToInternalModel = event => {
     awayPlayerStats: mapPlayerStats(
       getBoxScore(event.boxscore.players, event.header, 'away')
     ),
-    odds: getOdds(event.pickcenter)
+    odds: getOdds(event.pickcenter),
+    notes: event.header.gameNote,
+    attendance: event.gameInfo.attendance
   };
 };
 
