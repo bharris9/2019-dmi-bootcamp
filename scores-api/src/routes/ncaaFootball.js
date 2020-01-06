@@ -5,14 +5,16 @@ import mapToInternalModel from '../maps/football';
 import mapGameToInternalModel from '../maps/footballGame';
 import mapToRankingsModel from '../maps/ncaaFootballRankings';
 import mapToStandingsModel from '../maps/standings';
+import { getTimeSinceEpoch } from '../shared/shared';
 
 const baseUri =
   'http://site.api.espn.com/apis/site/v2/sports/football/college-football';
-const secondaryBaseUri = 'http://site.api.espn.com/apis/v2/sports/football/college-football';
+const secondaryBaseUri =
+  'http://site.api.espn.com/apis/v2/sports/football/college-football';
 const scoreboardUri = '/scoreboard';
 const rankingsUri = '/rankings';
 const gameSummaryUri = '/summary?event=';
-const standingsUri = '/standings?group='
+const standingsUri = '/standings?group=';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -22,7 +24,7 @@ router.get('/', async (req, res) => {
     const date = req.query.date;
     const week = req.query.week;
     const queryParams = getAllScoresQueryParams(group, date, week, 900);
-    const getAllScoresUri = `${allScoresUri}?${queryParams}`;
+    const getAllScoresUri = `${allScoresUri}?${queryParams}&${getTimeSinceEpoch()}`;
     console.log(getAllScoresUri);
     const response = await axios.get(getAllScoresUri);
     const data = response.data;
@@ -85,7 +87,8 @@ router.get('/calendar', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const gameUri = baseUri + gameSummaryUri + req.params.id;
+    const gameUri =
+      baseUri + gameSummaryUri + req.params.id + '&' + getTimeSinceEpoch();
     console.log(gameUri);
     const response = await axios.get(gameUri);
     const data = response.data;

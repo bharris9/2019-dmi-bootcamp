@@ -3,9 +3,9 @@ import express from 'express';
 import mapToInternalModel from '../maps/football';
 import mapToInternalCalendarModel from '../maps/leagueCalendar';
 import mapGameToInternalModel from '../maps/footballGame';
+import { getTimeSinceEpoch } from "../shared/shared";
 
-const baseUri =
-  'http://site.api.espn.com/apis/site/v2/sports/football/nfl';
+const baseUri = 'http://site.api.espn.com/apis/site/v2/sports/football/nfl';
 const secondaryBaseUri = 'http://site.api.espn.com/apis/v2/sports/football/nfl';
 const scoreboardUri = '/scoreboard';
 const gameSummaryUri = '/summary?event=';
@@ -34,7 +34,8 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const gameUri = baseUri + gameSummaryUri + req.params.id;
+    const gameUri =
+      baseUri + gameSummaryUri + req.params.id + '&' + getTimeSinceEpoch();
     console.log(gameUri);
     const response = await axios.get(gameUri);
     const data = response.data;
