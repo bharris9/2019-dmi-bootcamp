@@ -12,7 +12,7 @@ const mapGameToInternalModel = event => {
     tvBroadcast: getTvBroadcast(event.header.competitions[0].broadcasts),
     homeScore: mapScore(getTeamScore(event.header, 'home')),
     awayScore: mapScore(getTeamScore(event.header, 'away')),
-    lastPlay: getLastPlay(event),
+    lastPlay: getLastPlayText(event),
     currentSituation: getCurrentSituation(event),
     homeBoxScore: mapBoxScore(
       getBoxScore(event.boxscore.players, event.header, 'home')
@@ -24,12 +24,9 @@ const mapGameToInternalModel = event => {
   };
 };
 
-function getLastPlay(event) {
-  if (!!event.situation) {
-    const lastPlay = event.plays.find(p => p.id === event.situation.lastPlay.id);
-    return !!lastPlay ? lastPlay.text : null;
-  }
-  return null;
+function getLastPlayText(event) {
+  const lastPlay = getLastPlay(event);
+  return !!lastPlay ? lastPlay.text : null;
 }
 
 function getShortName(header) {
@@ -58,6 +55,7 @@ function mapBoxScore(teamBox) {
       descriptions: stats.descriptions,
       totals: stats.totals,
       players: stats.athletes.map(playerStats => ({
+        id: playerStats.athlete.id,
         active: playerStats.active,
         battingOrder: playerStats.batOrder,
         starter: playerStats.starter,
@@ -88,14 +86,32 @@ function mapScore(scoreItem) {
 
 function getCurrentSituation(event) {
   if (!!event.situation) {
+    const lastPlay = getLastPlay(event);
+
     return {
       balls: event.situation.balls,
       strikes: event.situation.strikes,
       outs: event.situation.outs,
       onFirst: !!event.situation.onFirst,
       onSecond: !!event.situation.onSecond,
-      onThird: !!event.situation.onThird
+      onThird: !!event.situation.onThird,
+      currentBattingOrder: lastPlay ? lastPlay.batOrder : null,
+      batterId:
+        lastPlay && lastPlay.participants
+          ? lastPlay.participants.find(p => p.type === 'batter').athlete.id
+          : null,
+      pitcherId:
+        lastPlay && lastPlay.participants
+          ? lastPlay.participants.find(p => p.type === 'pitcher').athlete.id
+          : null
     };
+  }
+  return null;
+}
+
+function getLastPlay(event) {
+  if (!!event.situation) {
+    return event.plays.find(p => p.id === event.situation.lastPlay.id);
   }
   return null;
 }
