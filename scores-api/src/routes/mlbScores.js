@@ -15,8 +15,8 @@ router.get('/', async (req, res) => {
   try {
     const date = req.query.date;
     const getAllScoresUri = !!date
-      ? `${mlbScoresUri}?dates=${date}&${getTimeSinceEpoch()}`
-      : mlbScoresUri + '&' + getTimeSinceEpoch();
+      ? `${mlbScoresUri}?dates=${date}}`
+      : mlbScoresUri;
     console.log(getAllScoresUri);
     const response = await axios.get(getAllScoresUri);
     const data = response.data;
