@@ -13,9 +13,11 @@
 * http://localhost:3000/scores/mlb - MLB
   - ?date=YYYYMMDD - filter by date
 * http://localhost:3000/scores/mlb/:gameId - MLB Game Summary (box score)
-* http://localhost:3000/scores/wwc - Women's World Cup
+* http://localhost:3000/scores/soccer/:league/ - Soccer
   - ?date=YYYYMMDD - filter by date
 * http://localhost:3000/scores/wwc/:gameId - Women's World Cup Game Summary
+* http://localhost:3000/scores/nfl - NFL
+* http://localhost:3000/scores/ncaa-football - MLB
 
 
 ## UI
